@@ -13,7 +13,7 @@ np = NeoPixel(pin, 256)  # 16x16 matrix
 
 # Main loop to play the animation
 while True:
-    with open('lambda.anim') as f:
+    with open('nifri.anim') as f:
         for line in f:
             frame = json.loads(line)
             # Iterate over each pixel in the frame and set its color

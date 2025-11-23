@@ -14,8 +14,8 @@ def frame_to_binary(frame, width, height):
     b = bytearray()
     for row in frame:
         for pixel in row:
-            r, g, b_val = pixel
-            b.extend([r, g, b_val])
+            r, g, b = pixel
+            b.extend([r, g, b])
     return bytes(b)
 
 
