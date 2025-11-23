@@ -14,8 +14,8 @@ def frame_to_binary(frame, width, height):
     b = bytearray()
     for row in frame:
         for pixel in row:
-            r, g, b = pixel
-            b.extend([r, g, b])
+            r, g, b_val = pixel
+            b.extend([r, g, b_val])
     return bytes(b)
 
 
@@ -61,7 +61,7 @@ def pack_animation(input_file, output_file, width=16, height=16):
 
     packed_size = len(frames) * bytes_per_frame + 4
     size_diff = original_filesize - packed_size
-    console.log(f"Packed {len(frames)} frames into {output_file} ({packed_size} bytes; original size was {original_filesize} bytes; saved {size_diff} bytes).")
+    console.log(f"Packed {len(frames)} frames into {output_file} ({packed_size} bytes; original size was {original_filesize} bytes; saved {size_diff} bytes, {size_diff / original_filesize * 100:.2f}% reduction).")
 
 
 if __name__ == "__main__":
