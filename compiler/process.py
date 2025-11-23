@@ -12,6 +12,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from compile_animation import detect_image_sequence, compile_animation
 from transformer import transform_animation
+from pack import pack_animation
 
 def main():
     """
@@ -65,6 +66,12 @@ def main():
         help="Brightness factor for the animation (from 0.0 to 1.0)."
     )
 
+    parser.add_argument(
+        "--pack",
+        action="store_true",
+        help="Pack the animation into a binary format (.animbyte)."
+    )
+
     args = parser.parse_args()
 
     # --- Step 1: Compile the animation ---
@@ -115,10 +122,15 @@ def main():
     #     json.dump({"frames": transformed_frames}, f)
     # console.log(f"Transformed animation saved to {output_filepath}")
 
-    with open(output_filepath.replace(".animbyte", ".anim"), "w") as f:
+    anim_filepath = output_filepath.replace(".animbyte", ".anim")
+    with open(anim_filepath, "w") as f:
         for frame in transformed_frames:
             f.write(json.dumps(frame) + '\n')
-    console.log(f"Transformed animation saved to {output_filepath.replace('.animbyte', '.anim')}")
+    console.log(f"Transformed animation saved to {anim_filepath}")
+
+    if args.pack:
+        console.log(f"Packing animation to {output_filepath}...")
+        pack_animation(anim_filepath, output_filepath, args.matrix_width, args.matrix_height)
 
 
     console.log("Done! :3")
