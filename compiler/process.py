@@ -65,6 +65,16 @@ def main():
         default=1.0,
         help="Brightness factor for the animation (from 0.0 to 1.0)."
     )
+    parser.add_argument(
+        "--mirror_x",
+        action="store_true",
+        help="Mirror horizontally (left-right flip)."
+    )
+    parser.add_argument(
+        "--mirror_y",
+        action="store_true",
+        help="Mirror vertically (top-bottom flip)."
+    )
 
     parser.add_argument(
         "--pack",
@@ -103,7 +113,9 @@ def main():
         animation_data,
         rotation=args.rotation,
         matrix_size=(args.matrix_width, args.matrix_height),
-        brightness=args.brightness
+        brightness=args.brightness,
+        mirror_x=args.mirror_x,
+        mirror_y=args.mirror_y
     )
 
     # --- Step 3: Save the final output ---

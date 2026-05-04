@@ -11,10 +11,18 @@ def transform(
         frame, # numpy array of shape (H, W, 3) representing an image
         rotation=0, # degrees (0, 90, 180, 270)
         matrix_size=(16, 16), # (width, height) of the LED matrix
-        brightness=1.0 # brightness factor (0.0 to 1.0)
+        brightness=1.0, # brightness factor (0.0 to 1.0)
+        mirror_x=False, # horizontal flip (left-right)
+        mirror_y=False # vertical flip (top-bottom)
     ):
 
     # Thank you so much numPy for making this so easy
+
+    # Apply mirroring first (before rotation)
+    if mirror_x:
+        frame = np.fliplr(frame)
+    if mirror_y:
+        frame = np.flipud(frame)
 
     if rotation == 90:
         frame = np.rot90(frame, k=1)
@@ -79,6 +87,8 @@ if __name__ == '__main__':
     parser.add_argument("--matrix_width", type=int, default=16, help="LED matrix width")
     parser.add_argument("--matrix_height", type=int, default=16, help="LED matrix height")
     parser.add_argument("--brightness", type=float, default=1.0, help="Brightness factor (0.0 to 1.0)")
+    parser.add_argument("--mirror_x", action="store_true", help="Mirror horizontally (left-right)")
+    parser.add_argument("--mirror_y", action="store_true", help="Mirror vertically (top-bottom)")
 
     args = parser.parse_args()
 
